@@ -1,11 +1,14 @@
 import re
+import urllib.request
 from os import listdir
 from os.path import isfile, join
+
 
 #gets the modifier name for all non-constant modifiers (not yes/no and not min autonomy)
 rawRegex = "<tr>\n<td>(.*)\n<\/td>\n<td><code>.*\n.*\n.*\n.*\n.*\n?.*\n?<td>[AM]"
 
 #gets the variable and constant text (as separate groups) for modifiers with variable names
+#example of variable name: <tech>_cost_modifier
 variableRegex = "&lt;(.*)&gt;(.*)"
 
 #gets the factions from factions files
@@ -20,15 +23,12 @@ if directory == "...\\steamapps\\common\\Europa Universalis IV":
     directory = input()
 commonDir = directory + "\\common"
 
-rawFile = "modifiersRaw.txt"
 cleanFile = "modifiers.txt"
 
-
-
-#get all modifiers from modifiersRaw (raw html from the wiki)
-fin = open(rawFile, "r")
-modifiers = re.findall(rawRegex, fin.read())
-fin.close()
+#get all modifiers from raw html from the wiki
+modifiersHtml = urllib.request.urlopen("https://eu4.paradoxwikis.com/Modifier_list")
+modifiers = re.findall(rawRegex, modifiersHtml.read().decode("utf8"))
+modifiersHtml.close()
 
 #get name of all factions
 factions = []
@@ -52,15 +52,15 @@ fout = open(cleanFile, "w")
 
 for modifier in modifiers:
     variable = re.search(variableRegex, modifier)
-    if(variable != None):
-        if(variable.group(1) == "tech"):
+    if(variable != None):   # If the modifier name has a variable in it, change that variable to a constant
+        if(variable.group(1) == "tech"):    # If the variable was <tech> add adm_tech, mil_tech, and dip_tech as separate modifiers
             fout.write("adm_tech" + variable.group(2) + '\n')
             fout.write("dip_tech" + variable.group(2) + '\n')
             fout.write("mil_tech" + variable.group(2) + '\n')
-        if(variable.group(1) == "faction"):
+        if(variable.group(1) == "faction"): # If the variable was <faction> add all faction variants, pulled from the factions directory
             for faction in factions:
                 fout.write(faction + variable.group(2) + '\n')
-        if(variable.group(1) == "estate"):
+        if(variable.group(1) == "estate"):  # If the variable was <estate> add all estate variants, pulled from the estates directory
             for estate in estates:
                 fout.write(estate + variable.group(2) + '\n')
     else:
