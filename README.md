@@ -4,4 +4,4 @@ modifiers.txt is a file containing all non-constant modifiers, generated from mo
  
 If new modifiers are added to the game, run getModifiersPublic.py to regenerate modifiers.txt
 
-Run goForthAndMultiplyPublic.py to generate the mod
+Run goForthAndMultiplyPublic.py to generate the mod folder
