@@ -4,17 +4,9 @@ from os import listdir
 from os.path import isfile, isdir, join
 
 # Path to eu4 installation directory, "...\\steamaps\\common\\Europa Universalis IV"
-gameDir = "...\\steamapps\\common\\Europa Universalis IV" #Set this to your EU4 directory, e.g. C:\\...\\steamapps\\common\\Europa Universalis IV
-if gameDir == "...\\steamapps\\common\\Europa Universalis IV":
-    print("Insert path to your EU4 directory: ")
-    gameDir = input()
-
-# Path to the local mod folder, "...\\Documents\\Paradox Interactive\\Europa Universalis IV\\mod\\[Mod Name]"
-modDir = "...\\Documents\\Paradox Interactive\\Europa Universalis IV\\mod\\UltimateX10New"
-if modDir == "...\\Documents\\Paradox Interactive\\Europa Universalis IV\\mod\\UltimateX10New":
-    print("Insert path to your local EU4 mod folder: ")
-    modDir = input()
-
+gameDir = "D:\\Stim\\steamapps\\common\\Europa Universalis IV"
+# Path to the local mod folder "...\\Documents\\Paradox Interactive\\Europa Universalis IV\\mod\\[Mod Name]"
+modDir = "C:\\Users\\Ryan Cavasso\\Documents\\Paradox Interactive\\Europa Universalis IV\\mod\\UltimateX10Test"
 commonDir = gameDir + "\\common"
 modifiersFile = "modifiers.txt"
 
@@ -58,18 +50,18 @@ fin.close()
 # Finds all modifier declarations in all files in a directory and rewrites those files to the mod directory with the value multiplied by 10
 def reWrite(directory):
     counter = 0
-    unusedDir = True
+    bad = True
     for file in [f for f in listdir(gameDir + directory) if isfile(join(gameDir + directory, f))]:
         # print("\t" + file)
         skipBlock = 0
-        unusedFile = True
+        unused = True
         fin = open(gameDir + directory + file, "r", encoding="Latin-1")
         fileText = ""
         skipStaticBlock = False
         for line in fin:
             match = re.search(modifierRegex, line)
 
-            # ignore ai code blocks and conditional code blocks
+            # ignore ai_will_do, trigger, allow, target_province_weights, and if code blocks (and a bunch of others lol)
             if(file != "00_static_modifiers.txt"):
                 if line[0] != '#' and ( line.find("ai_will_do = {") != -1 or line.find("trigger = {") != -1 or line.find("allow = {") != -1 or line.find("target_province_weights = {") != -1 or line.find("chance = {") != -1 or line.find("can_select = {") != -1 or line.find("ai = {") != -1):
                     skipBlock += 1
@@ -87,24 +79,26 @@ def reWrite(directory):
                             skipStaticBlock = False
                             break
                 
-            # if not skipping current block, find modifiers in current line and modify its value by 10
+
             if skipBlock == 0 and skipStaticBlock == False and re.search(commentRegex, line) == None and match != None and match.group(2) in modifiers:
-                unusedDir = False
-                unusedFile = False
+                bad = False
+                unused = False
                 counter += 1
                 counters[modifiers.index(match.group(2))] += 1
-                if file == "mil.txt":   # if current file is for military tech, multiply modifiers by 2
+                if match.group(2) == "election_cycle":
+                    fileText += match.group(1) + match.group(2) + " = " + str(round(float(match.group(3)) *  1.5, 2)) + match.group(4) + "\n"
+                elif file == "mil.txt":
                     fileText += match.group(1) + match.group(2) + " = " + str(round(float(match.group(3)) *  2, 2)) + match.group(4) + "\n"
-                else:                   # else, multiply modifiers by 10
+                else:
                     fileText += match.group(1) + match.group(2) + " = " + str(round(float(match.group(3)) * 10, 2)) + match.group(4) + "\n"
             else:
                 fileText += line
-        if unusedFile == False:
+        if unused == False:
             fout = open(modDir + directory + file, "w+", encoding="Latin-1")
             fout.write(fileText)
             fout.close()
         fin.close()
-    if unusedDir == True:   # alert if a directory is left unmodified
+    if bad == True:
         print("*** UNUSED: " + directory + "***")
     return counter
 
