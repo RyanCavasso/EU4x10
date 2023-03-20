@@ -3,10 +3,17 @@ import os
 from os import listdir
 from os.path import isfile, isdir, join
 
-# Path to eu4 installation directory, "...\\steamaps\\common\\Europa Universalis IV"
-gameDir = "D:\\Stim\\steamapps\\common\\Europa Universalis IV"
-# Path to the local mod folder "...\\Documents\\Paradox Interactive\\Europa Universalis IV\\mod\\[Mod Name]"
-modDir = "C:\\Users\\Ryan Cavasso\\Documents\\Paradox Interactive\\Europa Universalis IV\\mod\\UltimateX10Test"
+gameDir = "...\\steamapps\\common\\Europa Universalis IV" #Set this to your EU4 directory, e.g. C:\\...\\steamapps\\common\\Europa Universalis IV
+if gameDir == "...\\steamapps\\common\\Europa Universalis IV":
+    print("Insert path to your EU4 directory: ")
+    gameDir = input()
+
+# Path to the local mod folder, "...\\Documents\\Paradox Interactive\\Europa Universalis IV\\mod\\[Mod Name]"
+modDir = "...\\Documents\\Paradox Interactive\\Europa Universalis IV\\mod\\UltimateX10New"
+if modDir == "...\\Documents\\Paradox Interactive\\Europa Universalis IV\\mod\\UltimateX10New":
+    print("Insert path to your local EU4 mod folder: ")
+    modDir = input()
+    
 commonDir = gameDir + "\\common"
 modifiersFile = "modifiers.txt"
 
