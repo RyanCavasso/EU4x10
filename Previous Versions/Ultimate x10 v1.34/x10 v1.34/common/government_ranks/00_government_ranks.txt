@@ -1,0 +1,14 @@
+
+2 = {
+	diplomats = 1
+governing_capacity = 2000.0
+global_autonomy = -0.25
+}
+
+3 = {
+governing_capacity = 4000.0
+global_autonomy = -0.5
+max_absolutism = 50.0
+free_leader_pool = 10.0
+	diplomats = 1
+}

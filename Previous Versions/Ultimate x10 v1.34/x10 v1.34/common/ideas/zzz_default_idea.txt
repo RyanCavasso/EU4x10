@@ -1,0 +1,37 @@
+# This file contains the default idea group in order to make sure it is loaded last.
+
+
+default_ideas = {
+	start = {
+stability_cost_modifier = -1.0
+advisor_cost = -1.0
+	}
+	
+	bonus = {
+global_tax_modifier = 1.0
+	}
+	
+	free = yes
+	
+	increase_discipline = {
+discipline = 0.25
+	}
+	increase_taxation = {
+global_tax_modifier = 0.5
+	}	
+	cheaper_mercenaries = {
+merc_maintenance_modifier = -1.0
+	}
+	increased_trade_power = {
+global_trade_power = 0.5
+	}
+	increased_manpower = {
+global_manpower_modifier = 0.5
+	}
+	increased_trade_steering = {
+trade_steering = 0.5
+	}
+	increased_production_income = {
+production_efficiency = 0.5
+	}
+}

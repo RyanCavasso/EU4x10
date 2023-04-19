@@ -1,0 +1,73 @@
+staple_port = {
+    level = 1
+    type = coastal
+    province_modifiers = {
+province_trade_power_value = 50.0
+    }
+}
+
+entrepot = {
+    level = 2
+	development = 10
+    cost = 200
+    type = coastal
+    province_modifiers = {
+province_trade_power_value = 100.0
+local_development_cost = -0.5
+local_institution_spread = 1.0
+    }
+}
+
+world_port = {
+    level = 3
+	development = 25
+    cost = 1000
+    type = coastal
+    province_modifiers = {
+province_trade_power_value = 250.0
+local_institution_spread = 3.0
+    }
+    state_modifiers = {
+local_development_cost = -1.0
+local_sailors_modifier = 10.0
+allowed_num_of_buildings = 10.0
+    }
+    global_modifiers = {
+navy_tradition_decay = -0.02
+    }
+}
+
+emporium = {
+    level = 1
+    type = inland
+    province_modifiers = {
+province_trade_power_value = 50.0
+    }
+}
+
+market_town = {
+    level = 2
+    cost = 200
+	development = 10
+    type = inland
+    province_modifiers = {
+province_trade_power_value = 100.0
+local_development_cost = -0.5
+    }
+}
+
+world_trade_center = {
+    level = 3
+    cost = 1000
+	development = 25
+    type = inland
+    province_modifiers = {
+province_trade_power_value = 250.0
+local_institution_spread = 3.0
+    }
+    state_modifiers = {
+local_development_cost = -1.0
+local_manpower_modifier = 3.3
+allowed_num_of_buildings = 10.0
+    }
+}
