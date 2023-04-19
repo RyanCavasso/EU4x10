@@ -1,0 +1,36 @@
+########################################
+# Pirate Republic Factions
+########################################
+
+pr_buccaneers = {
+	monarch_power = ADM
+	always = yes
+
+	modifier = {
+republican_tradition = 2.0
+sailors_recovery_speed = 0.4
+global_tax_modifier = -0.1
+	}
+}
+
+pr_smugglers = {
+	monarch_power = DIP
+	always = yes
+
+	modifier = {
+global_trade_power = 0.2
+trade_efficiency = 0.2
+prestige = -1.0
+	}
+}
+
+pr_captains = {
+	monarch_power = MIL
+	always = yes
+
+	modifier = {
+leader_naval_fire = 2.0
+naval_morale = 0.2
+stability_cost_modifier = 0.2
+	}
+}
