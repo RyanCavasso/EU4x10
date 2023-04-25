@@ -290,6 +290,9 @@ cossacks_influence_modifier
 nomadic_tribes_influence_modifier
 dhimmi_influence_modifier
 jains_influence_modifier
+janissaries_influence_modifier
+eunuchs_influence_modifier
+special_influence_modifier
 brahmins_loyalty_modifier
 rajput_loyalty_modifier
 maratha_loyalty_modifier
@@ -301,6 +304,9 @@ cossacks_loyalty_modifier
 nomadic_tribes_loyalty_modifier
 dhimmi_loyalty_modifier
 jains_loyalty_modifier
+janissaries_loyalty_modifier
+eunuchs_loyalty_modifier
+special_loyalty_modifier
 all_estate_influence_modifier
 all_estate_loyalty_equilibrium
 imperial_authority
@@ -380,6 +386,7 @@ relation_with_heathens
 colonists
 colonist_placement_chance
 global_colonial_growth
+colony_cost_modifier
 range
 native_uprising_chance
 native_assimilation
@@ -471,6 +478,7 @@ local_missionary_maintenance_cost
 local_religious_conversion_resistance
 local_colonial_growth
 local_colonist_placement_chance
+local_colony_cost_modifier
 province_trade_power_modifier
 province_trade_power_value
 trade_goods_size_modifier
