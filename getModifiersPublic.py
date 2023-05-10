@@ -63,23 +63,14 @@ for modifier in modifiers:
         if(variable.group(2) == "estate"):  # If the variable was <estate> add all estate variants, pulled from the estates directory
             for estate in estates:
                 fout.write(estate + variable.group(3) + '\n')
-        if(variable.group(2) == "government_power_type_id" and variable.group(1) == ""):
-            if(variable.group(1) == ""):
-                fout.write("militarized_society" + variable.group(3) + '\n')
-                fout.write("prussian_militarized_society_1" + variable.group(3) + '\n')
-                fout.write("prussian_militarized_society_2" + variable.group(3) + '\n')
-                fout.write("prussian_militarized_society_3" + variable.group(3) + '\n')
-                fout.write("russian_modernization" + variable.group(3) + '\n')
-                fout.write("council_consensus" + variable.group(3) + '\n')
-                fout.write("ottoman_decadence" + variable.group(3) + '\n')
-            else:
-                fout.write(variable.group(1) + "militarized_society" + '\n')
-                fout.write(variable.group(1) + "prussian_militarized_society_1" + '\n')
-                fout.write(variable.group(1) + "prussian_militarized_society_2" + '\n')
-                fout.write(variable.group(1) + "prussian_militarized_society_3" + '\n')
-                fout.write(variable.group(1) + "russian_modernization" + '\n')
-                fout.write(variable.group(1) + "council_consensus" + '\n')
-                fout.write(variable.group(1) + "ottoman_decadence" + '\n')
+        if(variable.group(2) == "government_power_type_id"):
+            fout.write(variable.group(1) + "militarized_society" + variable.group(3) + '\n')
+            fout.write(variable.group(1) + "prussian_militarized_society_1" + variable.group(3) + '\n')
+            fout.write(variable.group(1) + "prussian_militarized_society_2" + variable.group(3) + '\n')
+            fout.write(variable.group(1) + "prussian_militarized_society_3" + variable.group(3) + '\n')
+            fout.write(variable.group(1) + "russian_modernization" + variable.group(3) + '\n')
+            fout.write(variable.group(1) + "council_consensus" + variable.group(3) + '\n')
+            fout.write(variable.group(1) + "ottoman_decadence" + variable.group(3) + '\n')
     else:
         fout.write(modifier + '\n')
 
