@@ -9,7 +9,7 @@ rawRegex = "<tr>\n<td>(.*)\n<\/td>\n<td><code>.*\n.*\n.*\n.*\n.*\n?.*\n?<td>[AM]
 
 #gets the variable and constant text (as separate groups) for modifiers with variable names
 #example of variable name: <tech>_cost_modifier
-variableRegex = "&lt;(.*)&gt;(.*)"
+variableRegex = "(.*)&lt;(.*)&gt;(.*)"
 
 #gets the factions from factions files
 factionsRegex = "(.+) =[ \n]{"
@@ -53,16 +53,33 @@ fout = open(cleanFile, "w")
 for modifier in modifiers:
     variable = re.search(variableRegex, modifier)
     if(variable != None):   # If the modifier name has a variable in it, change that variable to a constant
-        if(variable.group(1) == "tech"):    # If the variable was <tech> add adm_tech, mil_tech, and dip_tech as separate modifiers
-            fout.write("adm_tech" + variable.group(2) + '\n')
-            fout.write("dip_tech" + variable.group(2) + '\n')
-            fout.write("mil_tech" + variable.group(2) + '\n')
-        if(variable.group(1) == "faction"): # If the variable was <faction> add all faction variants, pulled from the factions directory
+        if(variable.group(2) == "tech"):    # If the variable was <tech> add adm_tech, mil_tech, and dip_tech as separate modifiers
+            fout.write("adm_tech" + variable.group(3) + '\n')
+            fout.write("dip_tech" + variable.group(3) + '\n')
+            fout.write("mil_tech" + variable.group(3) + '\n')
+        if(variable.group(2) == "faction"): # If the variable was <faction> add all faction variants, pulled from the factions directory
             for faction in factions:
-                fout.write(faction + variable.group(2) + '\n')
-        if(variable.group(1) == "estate"):  # If the variable was <estate> add all estate variants, pulled from the estates directory
+                fout.write(faction + variable.group(3) + '\n')
+        if(variable.group(2) == "estate"):  # If the variable was <estate> add all estate variants, pulled from the estates directory
             for estate in estates:
-                fout.write(estate + variable.group(2) + '\n')
+                fout.write(estate + variable.group(3) + '\n')
+        if(variable.group(2) == "government_power_type_id" and variable.group(1) == ""):
+            if(variable.group(1) == ""):
+                fout.write("militarized_society" + variable.group(3) + '\n')
+                fout.write("prussian_militarized_society_1" + variable.group(3) + '\n')
+                fout.write("prussian_militarized_society_2" + variable.group(3) + '\n')
+                fout.write("prussian_militarized_society_3" + variable.group(3) + '\n')
+                fout.write("russian_modernization" + variable.group(3) + '\n')
+                fout.write("council_consensus" + variable.group(3) + '\n')
+                fout.write("ottoman_decadence" + variable.group(3) + '\n')
+            else:
+                fout.write(variable.group(1) + "militarized_society" + '\n')
+                fout.write(variable.group(1) + "prussian_militarized_society_1" + '\n')
+                fout.write(variable.group(1) + "prussian_militarized_society_2" + '\n')
+                fout.write(variable.group(1) + "prussian_militarized_society_3" + '\n')
+                fout.write(variable.group(1) + "russian_modernization" + '\n')
+                fout.write(variable.group(1) + "council_consensus" + '\n')
+                fout.write(variable.group(1) + "ottoman_decadence" + '\n')
     else:
         fout.write(modifier + '\n')
 
